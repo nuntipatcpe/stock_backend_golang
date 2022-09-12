@@ -3,7 +3,7 @@ package interceptor
 import (
 	"fmt"
 	"net/http"
-	model "stock/Model"
+	"stock/model"
 	"strings"
 	"time"
 

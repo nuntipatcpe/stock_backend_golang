@@ -1,7 +1,7 @@
 package db
 
 import (
-	model "stock/Model"
+	"stock/model"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
@@ -21,6 +21,7 @@ func SetupDB() {
 	}
 	database.AutoMigrate(&model.User{})
 	database.AutoMigrate(&model.Product{})
+	database.AutoMigrate(&model.Transaction{})
 	db = database
 
 }

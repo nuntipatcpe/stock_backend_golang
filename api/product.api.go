@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
-	model "stock/Model"
 	"stock/db"
+	"stock/model"
 	"strconv"
 	"time"
 

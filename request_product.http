@@ -2,17 +2,15 @@
 GET http://localhost:8081/api/v2/product HTTP/1.1
 
 
+### Get Product with Token
+GET http://localhost:8081/api/v2/product HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NjI5OTUwNDgsImlkIjoxLCJsZXZlbCI6IiIsInVzZXJuYW1lIjoiYWRtaW4ifQ.YMrHCRxcnuEV7jg2zXc7RVONciWlM1EZu4Q_Wq0sX4c
+
 ### Get Product with keyword
 GET http://localhost:8081/api/v2/product?keyword=Edit HTTP/1.1
 
-### Get Product with Token
-GET http://localhost:8081/api/v2/product HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NjI5NzY2NDYsImlkIjoxLCJsZXZlbCI6IiIsInVzZXJuYW1lIjoiYWRtaW4ifQ.-Pht2qskQQoOn35UTDyX06BCJGFaE_lBDgVDyMWaGrM
-
-
 ### Get Product with Id
-GET http://localhost:8081/api/v2/product/6 HTTP/1.1
-# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NjI5NzY2NDYsImlkIjoxLCJsZXZlbCI6IiIsInVzZXJuYW1lIjoiYWRtaW4ifQ.-Pht2qskQQoOn35UTDyX06BCJGFaE_lBDgVDyMWaGrM
+GET http://localhost:8081/api/v2/product/4 HTTP/1.1
 
 
 ### Create product multipart
@@ -22,7 +20,7 @@ Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0g
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="name";
 
-Angular 
+test
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="stock";
 
@@ -50,7 +48,7 @@ Content-Disposition: form-data; name="id";
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="name";
 
-Arduino board (Edit)
+test (Edit)
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="stock";
 

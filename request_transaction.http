@@ -1,11 +1,19 @@
-### GET product
+
+### Get Transaction 
 GET http://localhost:8081/api/v2/transaction HTTP/1.1
 
-### Create product
+
+
+### Create Tranaction 
 POST http://localhost:8081/api/v2/transaction HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NjI5OTUzMTMsImlkIjoxLCJsZXZlbCI6IiIsInVzZXJuYW1lIjoiYWRtaW4ifQ._T3b5KWgUwd3k97xkNQkYwPH5B1aM_iUdGHZh-InFiA
 Content-Type: application/json
 
 {
-    "username":"admin",
-    "password":"1234"
+  "total": 50.50,
+  "paid": 100,
+  "change": 49.50,
+  "payment_type": "cash",
+  "payment_detail": "full",
+  "order_list": "[]"  
 }
