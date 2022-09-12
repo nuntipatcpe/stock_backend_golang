@@ -2,12 +2,12 @@ package api
 
 import (
 	"fmt"
+	"main/db"
+	"main/model"
 	"mime/multipart"
 	"net/http"
 	"os"
 	"path/filepath"
-	"stock/db"
-	"stock/model"
 	"strconv"
 	"time"
 

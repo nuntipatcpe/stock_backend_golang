@@ -1,4 +1,4 @@
-module stock
+module main
 
 go 1.19
 
