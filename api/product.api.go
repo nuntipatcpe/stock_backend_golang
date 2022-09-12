@@ -2,10 +2,15 @@ package api
 
 import (
 	"fmt"
+	"mime/multipart"
+	"net/http"
 	"os"
+	"path/filepath"
 	model "stock/Model"
+	"stock/db"
 	"stock/interceptor"
 	"strconv"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -15,6 +20,7 @@ func SetupProductAPI(router *gin.Engine) {
 	{
 		productAPI.GET("/product", interceptor.JwtVerify, getProduct)
 		productAPI.POST("/product", createProduct)
+		productAPI.PUT("/product", editProduct)
 	}
 }
 
@@ -22,20 +28,55 @@ func getProduct(ctx *gin.Context) {
 	ctx.JSON(200, gin.H{"result": "Get product", "username": ctx.GetString("jwt_username")})
 }
 func createProduct(ctx *gin.Context) {
-	// ctx.JSON(200, gin.H{"result": "Create Product"})
-
 	product := model.Product{}
 	product.Name = ctx.PostForm("name")
 	product.Stock, _ = strconv.ParseInt(ctx.PostForm("stock"), 10, 64) //base 10 64bit
 	product.Price, _ = strconv.ParseFloat(ctx.PostForm("price"), 64)   //64bit
-	image, _ := ctx.FormFile("image")
-	product.Image = image.Filename
+	product.CreatedAt = time.Now()
+	db.GetDb().Create(&product)
 
-	// extension := filepath.Ext(image.Filename)
-	// fileName := fmt.Sprintf("%d%s", product.ID, extension)
-	runningDir, _ := os.Getwd()
-	filepath := fmt.Sprintf("%s/uploaded/images/%s", runningDir, image.Filename)
-	ctx.SaveUploadedFile(image, filepath)
+	image, _ := ctx.FormFile("image")
+	saveImage(image, &product, ctx)
 
 	ctx.JSON(200, gin.H{"result": product})
+}
+
+func fileExists(filename string) bool {
+	info, err := os.Stat(filename)
+	if os.IsNotExist(err) {
+		return false
+	}
+	return !info.IsDir()
+}
+
+func saveImage(image *multipart.FileHeader, product *model.Product, c *gin.Context) {
+	if image != nil {
+		runningDir, _ := os.Getwd()
+		product.Image = image.Filename
+		extension := filepath.Ext(image.Filename)
+		fileName := fmt.Sprintf("%d%s", product.ID, extension)
+		filePath := fmt.Sprintf("%s/uploaded/images/%s", runningDir, fileName)
+
+		if fileExists(filePath) {
+			os.Remove(filePath)
+		}
+		c.SaveUploadedFile(image, filePath)
+
+		db.GetDb().Model(&product).Update("image", fileName)
+	}
+}
+
+func editProduct(c *gin.Context) {
+	var product model.Product
+	id, _ := strconv.ParseInt(c.PostForm("id"), 10, 32)
+	product.ID = uint(id)
+	product.Name = c.PostForm("name")
+	product.Stock, _ = strconv.ParseInt(c.PostForm("stock"), 10, 64)
+	product.Price, _ = strconv.ParseFloat(c.PostForm("price"), 64)
+
+	db.GetDb().Save(&product)
+	image, _ := c.FormFile("image")
+	saveImage(image, &product, c)
+	c.JSON(http.StatusOK, gin.H{"result": product})
+
 }
