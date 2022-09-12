@@ -3,6 +3,7 @@ package api
 import (
 	model "stock/Model"
 	"stock/db"
+	"stock/interceptor"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -28,7 +29,8 @@ func login(ctx *gin.Context) {
 		} else if !checkPasswordHash(user.Password, queryUser.Password) {
 			ctx.JSON(200, gin.H{"result": "nok", "error": "invalid password"})
 		} else {
-			ctx.JSON(200, gin.H{"result": "ok", "data": user})
+
+			ctx.JSON(200, gin.H{"result": "ok", "token": interceptor.JwtSign(queryUser)})
 		}
 	} else {
 
