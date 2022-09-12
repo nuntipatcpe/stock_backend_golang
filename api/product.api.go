@@ -8,7 +8,6 @@ import (
 	"path/filepath"
 	model "stock/Model"
 	"stock/db"
-	"stock/interceptor"
 	"strconv"
 	"time"
 
@@ -18,14 +17,31 @@ import (
 func SetupProductAPI(router *gin.Engine) {
 	productAPI := router.Group("/api/v2")
 	{
-		productAPI.GET("/product", interceptor.JwtVerify, getProduct)
+		productAPI.GET("/product" /*interceptor.JwtVerify ,*/, getProduct)
+		productAPI.GET("/product/:id" /*interceptor.JwtVerify ,*/, getProductById)
 		productAPI.POST("/product", createProduct)
 		productAPI.PUT("/product", editProduct)
 	}
 }
 
-func getProduct(ctx *gin.Context) {
-	ctx.JSON(200, gin.H{"result": "Get product", "username": ctx.GetString("jwt_username")})
+func getProduct(c *gin.Context) {
+	var product []model.Product
+
+	// db.GetDb().Find(&product)
+	keyword := c.Query("keyword") //string query -> /api/v2/product?keyword=Ar
+	if keyword != "" {
+		keyword = fmt.Sprintf("%%%s%%", keyword)
+		db.GetDb().Where("name like ?", keyword).Find(&product)
+	} else {
+		db.GetDb().Find(&product)
+	}
+	c.JSON(200, product)
+
+}
+func getProductById(c *gin.Context) {
+	var product model.Product
+	db.GetDb().Where("id = ?", c.Param("id")).First(&product)
+	c.JSON(200, product)
 }
 func createProduct(ctx *gin.Context) {
 	product := model.Product{}
