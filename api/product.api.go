@@ -1,11 +1,25 @@
 package api
 
-import "github.com/gin-gonic/gin"
+import (
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
+
+func myInterceptor(ctx *gin.Context) {
+	token := ctx.Query("token")
+	if token == "1234" {
+		ctx.Next()
+	} else {
+		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
+		ctx.Abort()
+	}
+}
 
 func SetupProductAPI(router *gin.Engine) {
 	productAPI := router.Group("/api/v2")
 	{
-		productAPI.GET("/product", getProduct)
+		productAPI.GET("/product", myInterceptor, getProduct)
 		productAPI.POST("/product", createProduct)
 	}
 }

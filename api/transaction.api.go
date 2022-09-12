@@ -1,6 +1,10 @@
 package api
 
-import "github.com/gin-gonic/gin"
+import (
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
 
 func SetupTransactionAPI(router *gin.Engine) {
 
@@ -12,8 +16,8 @@ func SetupTransactionAPI(router *gin.Engine) {
 }
 
 func getTransaction(ctx *gin.Context) {
-	ctx.JSON(200, gin.H{"result": "Get transaction"})
+	ctx.JSON(http.StatusOK, gin.H{"result": "Get transaction"})
 }
 func createTransaction(ctx *gin.Context) {
-	ctx.JSON(200, gin.H{"result": "Create transaction"})
+	ctx.JSON(http.StatusOK, gin.H{"result": "Create transaction"})
 }
