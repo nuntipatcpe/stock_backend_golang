@@ -1,10 +1,10 @@
 package api
 
 import (
-	"main/db"
-	"main/interceptor"
-	"main/model"
 	"net/http"
+	"stock/db"
+	"stock/interceptor"
+	"stock/model"
 
 	"time"
 

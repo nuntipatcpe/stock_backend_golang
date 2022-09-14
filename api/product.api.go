@@ -2,8 +2,9 @@ package api
 
 import (
 	"fmt"
-	"main/db"
-	"main/model"
+	"stock/db"
+	"stock/model"
+
 	"mime/multipart"
 	"net/http"
 	"os"

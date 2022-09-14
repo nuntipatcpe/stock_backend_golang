@@ -2,8 +2,8 @@ package interceptor
 
 import (
 	"fmt"
-	"main/model"
 	"net/http"
+	"stock/model"
 	"strings"
 	"time"
 
