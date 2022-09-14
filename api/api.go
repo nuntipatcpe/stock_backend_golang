@@ -1,7 +1,7 @@
 package api
 
 import (
-	"stock/db"
+	"main/db"
 
 	"github.com/gin-gonic/gin"
 )

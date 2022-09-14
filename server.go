@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
+	"main/api"
 	"os"
-	"stock/api"
 
 	"github.com/gin-gonic/gin"
 )

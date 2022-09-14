@@ -1,9 +1,10 @@
 package api
 
 import (
-	"stock/db"
-	"stock/interceptor"
-	"stock/model"
+	"main/db"
+	"main/interceptor"
+	"main/model"
+
 	"time"
 
 	"github.com/gin-gonic/gin"
