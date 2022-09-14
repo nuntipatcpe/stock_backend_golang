@@ -17,3 +17,13 @@
 **http**
 
 https://www.youtube.com/watch?v=iRyrJ3VaN0U
+
+## build
+
+```
+go build
+```
+
+```
+go build -ldflags "-s -w"
+```

@@ -7,7 +7,11 @@ import (
 )
 
 func main() {
-	router := gin.Default()
+	//set * Running in "debug" mode. Switch to "release" mode in production
+	gin.SetMode(gin.ReleaseMode)
+	router := gin.New()
+
+	// router := gin.Default()
 	router.Static("/images", "./uploaded/images")
 
 	api.Setup(router)

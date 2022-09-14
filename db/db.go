@@ -14,7 +14,6 @@ func GetDb() *gorm.DB {
 }
 
 func SetupDB() {
-
 	database, err := gorm.Open(sqlite.Open("database.sqlite"), &gorm.Config{})
 	if err != nil {
 		panic("failed to connect database")
@@ -23,5 +22,4 @@ func SetupDB() {
 	database.AutoMigrate(&model.Product{})
 	database.AutoMigrate(&model.Transaction{})
 	db = database
-
 }
