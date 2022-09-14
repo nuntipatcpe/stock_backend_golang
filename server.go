@@ -15,15 +15,16 @@ func main() {
 
 	router := gin.Default()
 	router.Static("/images", "./uploaded/images")
+
 	api.Setup(router)
 
+	// In case of running on Heroku
 	var port = os.Getenv("PORT")
 	if port == "" {
-		fmt.Print("No Port In Heroku")
+		fmt.Println("Running on Heroku using random PORT")
 		router.Run()
-
 	} else {
-		fmt.Print("Environment Port : " + port)
+		fmt.Println("Environment Port : " + port)
 		router.Run(":" + port)
 	}
 	// router.Run(":8081")
