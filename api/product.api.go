@@ -37,8 +37,8 @@ func getProduct(c *gin.Context) {
 		db.GetDb().Find(&product)
 	}
 	c.JSON(200, product)
-
 }
+
 func getProductById(c *gin.Context) {
 	var product model.Product
 	db.GetDb().Where("id = ?", c.Param("id")).First(&product)
